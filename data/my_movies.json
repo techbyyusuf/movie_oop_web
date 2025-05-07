@@ -1,0 +1,12 @@
+{
+    "Parasite": {
+        "Year": "2019",
+        "Rating": "8.5",
+        "Poster": "https://m.media-amazon.com/images/M/MV5BYjk1Y2U4MjQtY2ZiNS00OWQyLWI3MmYtZWUwNmRjYWRiNWNhXkEyXkFqcGc@._V1_SX300.jpg"
+    },
+    "Forrest Gump": {
+        "Year": "1994",
+        "Rating": "8.8",
+        "Poster": "https://m.media-amazon.com/images/M/MV5BNDYwNzVjMTItZmU5YS00YjQ5LTljYjgtMjY2NDVmYWMyNWFmXkEyXkFqcGc@._V1_SX300.jpg"
+    }
+}
