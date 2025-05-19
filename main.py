@@ -7,7 +7,8 @@ def main():
     """
     Creates the storage and movie app, then runs it.
     """
-    storage = StorageJson("data/movies.csv")
+    #storage = StorageCsv("data/movies.csv")
+    storage = StorageJson("data/movies.json")
     app = MovieApp(storage)
     app.run()
 

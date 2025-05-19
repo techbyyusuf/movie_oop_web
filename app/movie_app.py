@@ -1,10 +1,17 @@
-import random
 import os
+import random
 import webbrowser
+
 from app.omdb_helper import load_movie_data
 
 
 class MovieApp:
+    """
+    Command-line interface for managing a movie collection.
+    Allows the user to list, add, delete, update, search, and sort movies.
+    Also supports generating and opening a website from stored movie data.
+    This app relies on a storage object that implements the IStorage interface.
+    """
     def __init__(self, storage):
         """
         Takes a storage object that follows the IStorage interface.
@@ -24,7 +31,6 @@ class MovieApp:
             "0": exit
         }
 
-
     def _command_list_movies(self):
         """
         Prints all movies from storage.
@@ -35,7 +41,6 @@ class MovieApp:
             print(f"\n{title}")
             for key, value in info.items():
                 print(f"{key}: {value}")
-
 
     def _command_add_movie(self):
         """
@@ -54,15 +59,17 @@ class MovieApp:
         self._storage.add_movie(title, year, rating, poster)
         print("Movie added!")
 
-
     def _command_delete_movie(self):
         """
         Asks user for a title and deletes the movie.
         """
         title = input("Enter movie title to delete: ")
-        self._storage.delete_movie(title)
-        print("Movie deleted!")
-
+        movies = self._storage.list_movies()
+        if any(title.lower() == movie.lower() for movie in movies):
+            self._storage.delete_movie(title)
+            print("Movie deleted!")
+        else:
+            print("Movie not found.")
 
     def _command_update_movie(self):
         """
@@ -73,7 +80,6 @@ class MovieApp:
         self._storage.update_movie(title, rating)
         print("Movie updated!")
 
-
     def _command_movie_stats(self):
         """
         Shows average and total count of movies.
@@ -82,10 +88,9 @@ class MovieApp:
         if not movies:
             print("No movies in database.")
             return
-        ratings = [float(info["Rating"]) for info in movies.values()]
+        ratings = [float(info["rating"]) for info in movies.values()]
         avg = sum(ratings) / len(ratings)
         print(f"Average rating: {avg:.1f}")
-
 
     def _command_random_movie(self):
         """
@@ -97,9 +102,8 @@ class MovieApp:
             return
         title, info = random.choice(list(movies.items()))
         print(f"\n🎲 Random movie: {title}")
-        print(f"Rating: {info['Rating']}")
-        print(f"Year: {info['Year']}")
-
+        print(f"Rating: {info['rating']}")
+        print(f"Year: {info['year']}")
 
     def _command_search_movie(self):
         """
@@ -110,12 +114,11 @@ class MovieApp:
         for title, info in self._storage.list_movies().items():
             if search in title.lower():
                 print(f"\n{title}")
-                print(f"Rating: {info['Rating']}")
-                print(f"Year: {info['Year']}")
+                print(f"Rating: {info['rating']}")
+                print(f"Year: {info['year']}")
                 found = True
         if not found:
             print("No matching movie found.")
-
 
     def _command_sort_by_rating(self):
         """
@@ -124,29 +127,28 @@ class MovieApp:
         movies = self._storage.list_movies()
         sorted_movies = sorted(
             movies.items(),
-            key=lambda x: float(x[1]["Rating"]),
+            key=lambda x: float(x[1]["rating"]),
             reverse=True
         )
         for title, info in sorted_movies:
             print(f"\n{title}")
-            print(f"Rating: {info['Rating']}")
-            print(f"Year: {info['Year']}")
+            print(f"Rating: {info['rating']}")
+            print(f"Year: {info['year']}")
 
     def _generate_website(self):
         """
         Generates a website with all movies and saves it as index.html.
         """
         try:
-            with open("templates/index_template.html", "r",
-                      encoding="utf-8") as f:
+            with open("templates/index_template.html", "r", encoding="utf-8") as f:
                 template = f.read()
 
             movies = self._storage.list_movies()
 
             movie_grid_html = ""
             for title, info in movies.items():
-                poster = info.get("Poster", "")
-                year = info.get("Year", "N/A")
+                poster = info.get("poster", "")
+                year = info.get("year", "N/A")
 
                 movie_html = f"""
                     <li>
@@ -160,10 +162,8 @@ class MovieApp:
 
                 movie_grid_html += movie_html
 
-            template = template.replace("__TEMPLATE_TITLE__",
-                                        "My Movie Website")
-            template = template.replace("__TEMPLATE_MOVIE_GRID__",
-                                        movie_grid_html)
+            template = template.replace("__TEMPLATE_TITLE__", "My Movie Website")
+            template = template.replace("__TEMPLATE_MOVIE_GRID__", movie_grid_html)
 
             with open("index.html", "w", encoding="utf-8") as f:
                 f.write(template)
@@ -171,7 +171,6 @@ class MovieApp:
             print("Website was generated successfully.")
         except Exception as e:
             print("Something went wrong while generating the website:", e)
-
 
     def _command_open_website(self):
         """

@@ -1,12 +1,6 @@
-{
-    "Parasite": {
-        "Year": "2019",
-        "Rating": "8.5",
-        "Poster": "https://m.media-amazon.com/images/M/MV5BYjk1Y2U4MjQtY2ZiNS00OWQyLWI3MmYtZWUwNmRjYWRiNWNhXkEyXkFqcGc@._V1_SX300.jpg"
-    },
-    "The Godfather": {
-        "Year": "1972",
-        "Rating": "9.2",
-        "Poster": "https://m.media-amazon.com/images/M/MV5BNGEwYjgwOGQtYjg5ZS00Njc1LTk2ZGEtM2QwZWQ2NjdhZTE5XkEyXkFqcGc@._V1_SX300.jpg"
-    }
-}
+title,rating,year,poster
+Parasite,8.5,2019,https://m.media-amazon.com/images/M/MV5BYjk1Y2U4MjQtY2ZiNS00OWQyLWI3MmYtZWUwNmRjYWRiNWNhXkEyXkFqcGc@._V1_SX300.jpg
+The Godfather,9.2,1972,https://m.media-amazon.com/images/M/MV5BNGEwYjgwOGQtYjg5ZS00Njc1LTk2ZGEtM2QwZWQ2NjdhZTE5XkEyXkFqcGc@._V1_SX300.jpg
+Inception,8.8,2010,https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxMV5BMl5BanBnXkFtZTcwODI5OTM0Mw@@._V1_SX300.jpg
+Interstellar,8.6,2014,https://m.media-amazon.com/images/M/MV5BZjdkOTU3MDAtMzZhMi00Yzk3LWI5YjQtYjEyMjY0YjM0M2MwXkEyXkFqcGc@._V1_SX300.jpg
+The Dark Knight,9.0,2008,https://m.media-amazon.com/images/M/MV5BMTMxNTMwODM0NF5BMl5BanBnXkFtZTcwODAyMDU5MQ@@._V1_SX300.jpg
